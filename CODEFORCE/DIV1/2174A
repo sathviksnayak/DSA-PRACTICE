@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    const int B = 26;
+
+    long tc;
+    cin >> tc;
+
+    while(tc--) {
+
+        string s, t;
+        cin >> s >> t;
+
+        vector<int> a(B, 0);
+
+   
+        for(char x : t) {
+            a[x - 'a']++;
+        }
+
+        bool possible = true;
+
+     
+        for(char x : s) {
+            a[x - 'a']--;
+
+            if(a[x - 'a'] < 0) {
+                possible = false;
+                break;
+            }
+        }
+
+        if(!possible) {
+            cout << "Impossible\n";
+            continue;
+        }
+
+        string w = "";
+
+     
+        for(int i = 0; i < s.size(); i++) {
+
+            for(int j = 0; j < s[i] - 'a'; j++) {
+
+                while(a[j] > 0) {
+                    w += char('a' + j);
+                    a[j]--;
+                }
+            }
+
+            w += s[i];
+        }
+
+        
+        for(int j = 0; j < B; j++) {
+
+            while(a[j] > 0) {
+                w += char('a' + j);
+                a[j]--;
+            }
+        }
+
+        cout << w << "\n";
+    }
+}
